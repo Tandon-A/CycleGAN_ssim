@@ -7,6 +7,8 @@ Cycle Consistent Generative Adversarial Networks (CycleGAN) as described in the 
 
 <img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/CycleGAN_working.png" width="600" alt="CycleGAN model">
 
+For the CycleGAN implementation with L1 Loss refer to [here](https://github.com/Tandon-A/Image-Editing-using-GAN/tree/master/CycleGAN). For the official CycleGAN implementation read [here](https://github.com/junyanz/CycleGAN). 
+
 ## Prerequisites
 
 * Python 3.3+
