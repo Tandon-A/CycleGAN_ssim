@@ -56,7 +56,9 @@ Trained CycleGAN model on Monet-Photo Database.
 |:-----------:|:------------:|:-----------:|:------------:|:-----------:|:------------:|
 ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/orgA7.png)  |  ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/realA7.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/orgA15.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/realA15.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/orgA27.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/realA27.png) 
 
+### Other Comparisons 
 
+Work in Progress
 
 ## License
 
