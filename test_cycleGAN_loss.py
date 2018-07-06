@@ -67,7 +67,7 @@ def main(_):
                 batch_size = 1
                 pool_size = 50 
                 beta1 = 0.5
-                loss_type = "l1"
+                loss_type = FLAGS.loss_type
                 tf.reset_default_graph()
                 
                 cgan_net = CycleGAN(batch_size,input_shape,pool_size,beta1,loss_type)
@@ -79,6 +79,7 @@ flags.DEFINE_string("testA_image",None,"TestA Image Path")
 flags.DEFINE_string("testB_image",None,"TestB Image Path")
 flags.DEFINE_string("model_dir",None,"Path to checkpoint folder")
 flags.DEFINE_string("images_dir","images_dir","Directory where images sampled from the generator (while testing the model) are stored")
+flags.DEFINE_string("loss_type","l1","Loss type with which cycleGAN model is to be tested")
 FLAGS = flags.FLAGS
     
 if __name__ == '__main__':
