@@ -149,7 +149,7 @@ def main(_):
         beta1 = 0.5
         max_img = 100    
         # change loss type. Options - l1, l2, ssim, ssim_1l, ssim_l2_a, ssim_l2_b, ssim_l1l2_a, ssim_l1l2_b, l1_l2
-        loss_type = "l1"
+        loss_type = FLAGS.loss_type
         tf.reset_default_graph()
         
         cgan_net = CycleGAN(batch_size,input_shape,pool_size,beta1,loss_type)
@@ -163,6 +163,7 @@ flags.DEFINE_string("data_path",None,"Path to parent directory of trainA and tra
 flags.DEFINE_string("input_fname_pattern","*.jpg","Glob pattern of training images")
 flags.DEFINE_string("model_dir","CycleGAN_model","Directory name to save checkpoints")
 flags.DEFINE_string("sampled_images_dir","sampled_images","Directory where images sampled from the generator (while training the model) are stored")
+flags.DEFINE_string("loss_type","l1","Loss type with which cycleGAN is to be trained")
 FLAGS = flags.FLAGS
     
 if __name__ == '__main__':
