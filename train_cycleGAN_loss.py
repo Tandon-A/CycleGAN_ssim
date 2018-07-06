@@ -3,12 +3,13 @@ import numpy as np
 from glob import glob
 import random
 from PIL import Image 
-import matplotlib.pyplot as plt 
+import os
+import scipy.misc
 
 """
-Import CycleGAN with SSIM loss class definition.
+Import CycleGAN class definition.
 """
-from cycleGAN_ssim import CycleGAN
+from cycleGAN_loss import CycleGAN
 
 
 """
@@ -49,11 +50,11 @@ def save_to_pool(poolA,poolB,gen_A,gen_B,pool_size,num_im):
 """
 Function to train the network
 """
-def train(cgan_net,max_img,batch_size,trainA,trainB,lr_rate,shape,pool_size):
+def train(cgan_net,max_img,batch_size,trainA,trainB,lr_rate,shape,pool_size,model_dir,image_dir):
     saver = tf.train.Saver(max_to_keep=None)
     lenA = len(trainA)
     lenB = len(trainB)
-    epoch = 170
+    epoch = 0
     countA = 0 
     countB = 0
     num_imgs = 0
@@ -108,15 +109,15 @@ def train(cgan_net,max_img,batch_size,trainA,trainB,lr_rate,shape,pool_size):
                     
                 if step % 150 == 0:
                     images = [genA,cyclicB,genB,cyclicA]
+                    img_ind = 0
                     for img in images:
                         img = np.reshape(img,(shape[0],shape[1],shape[2]))
                         if np.array_equal(img.max(),img.min()) == False:
                             img = (((img - img.min())*255)/(img.max()-img.min())).astype(np.uint8)
                         else:
                             img = ((img - img.min())*255).astype(np.uint8)
-                        plt.imshow(img)
-                        plt.show()
-                print ("calc =%r" %(step))
+                        scipy.misc.toimage(img, cmin=0.0, cmax=...).save(images_dir+"\\img_"+str(img_ind)+"_"+str(epoch)+"_"+str(step)+".jpg")
+                        img_ind = img_ind + 1
                 
             if epoch % 10 == 0:
                 #change the second argument of save function to the path where you want to save model weights 
@@ -128,22 +129,42 @@ def train(cgan_net,max_img,batch_size,trainA,trainB,lr_rate,shape,pool_size):
         
           
 
-#change model_dir to the parent directory where weights would be saved                     
-model_dir = "cycleGAN\\model\\"
 
-#change path values for dataset
-trainA = glob("cycleGAN\\dataset\\monet2photo\\trainA\\*.jpg")
-trainB = glob("cycleGAN\\dataset\\monet2photo\\trainB\\*.jpg")
+def main(_): 
+    if not os.path.exists(FLAGS.data_path):
+        print ("Training Path doesn't exist")
+    else:
+            
+        if not os.path.exists(FLAGS.model_dir):
+            os.makedirs(FLAGS.model_dir)
+        if not os.path.exists(FLAGS.sampled_images_dir):
+            os.makedirs(FLAGS.sampled_images_dir)
+    
+        trainA = glob(FLAGS.data_path+"\\trainA\\"+FLAGS.input_fname_pattern)
+        trainB = glob(FLAGS.data_path+"\\trainB\\"+FLAGS.input_fname_pattern)
+        input_shape = 128,128,3
+        batch_size = 1
+        pool_size = 50 
+        lr_rate = 0.0002
+        beta1 = 0.5
+        max_img = 100    
+        # change loss type. Options - l1, l2, ssim, ssim_1l, ssim_l2_a, ssim_l2_b, ssim_l1l2_a, ssim_l1l2_b, l1_l2
+        loss_type = "l1"
+        tf.reset_default_graph()
+        
+        cgan_net = CycleGAN(batch_size,input_shape,pool_size,beta1,loss_type)
+        
+        train(cgan_net,max_img,batch_size,trainA,trainB,lr_rate,input_shape,pool_size,FLAGS.model_dir,FLAGS.sampled_images_dir)
 
-input_shape = 128,128,3
-batch_size = 1
-pool_size = 50 
-lr_rate = 0.0002
-beta1 = 0.5
-max_img = 250
-tf.reset_default_graph()
 
-cgan_net = CycleGAN(batch_size,input_shape,pool_size,beta1)
 
-train(cgan_net,max_img,batch_size,trainA,trainB,lr_rate,input_shape,pool_size)
+flags = tf.app.flags
+flags.DEFINE_string("data_path",None,"Path to parent directory of trainA and trainB folder")
+flags.DEFINE_string("input_fname_pattern","*.jpg","Glob pattern of training images")
+flags.DEFINE_string("model_dir","CycleGAN_model","Directory name to save checkpoints")
+flags.DEFINE_string("sampled_images_dir","sampled_images","Directory where images sampled from the generator (while training the model) are stored")
+FLAGS = flags.FLAGS
+    
+if __name__ == '__main__':
+    tf.app.run()
 
