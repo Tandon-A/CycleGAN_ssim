@@ -2,7 +2,7 @@
 
 This project is an extension of the project [Image Editing using GAN](https://github.com/Tandon-A/Image-Editing-using-GAN). 
 
-Cycle Consistent Generative Adversarial Networks (CycleGAN) as described in the [paper](https://arxiv.org/abs/1703.10593) have been implemented with [SSIM loss](https://arxiv.org/abs/1511.08861) to produce images of better visual quality. The code is developed in tensorflow.
+Implemented and trained Cycle Consistent Generative Adversarial Network (CycleGAN) as described in the [paper](https://arxiv.org/abs/1703.10593) with different [loss functions](https://arxiv.org/abs/1511.08861), specifically SSIM loss, L1 loss, L2 loss and their combinations, to produce images of better visual quality. 
 
 
 <img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/CycleGAN_working.png" width="600" alt="CycleGAN model">
@@ -12,53 +12,55 @@ For the CycleGAN implementation with L1 Loss refer to [here](https://github.com/
 ## Prerequisites
 
 * Python 3.3+
-* Tensorflow 
+* Tensorflow 1.6+
 * pillow (PIL)
-* matplotlib 
 * (Optional) [Monet-Photo Database](https://people.eecs.berkeley.edu/~taesung_park/CycleGAN/datasets/monet2photo.zip)
+
+## Usage
+
+To train the model:
+```
+> python train_cycleGAN.py --data_path monet2photo --input_fname_pattern .jpg --model_dir cycleGAN_model --sampled_images_dir train_image_dir --loss_type l1
+```
+* data_path: Path to parent directory of trainA and trainB folder
+* input_fname_pattern: Glob pattern of training images
+* model_dir: Directory name to save checkpoints
+* sampled_images_dir: Directory where images sampled from the generator (while training the model) are stored 
+* loss_type: Loss type with which cycleGAN model is trained. 
+
+
+To test the model:
+```
+> python test_cycleGAN.py --testA_image A01.jpg --testB_image B01.jpg --model_dir cycleGAN_model --sampled_imaes_dir test_image_dir --loss_type l1
+```
+* testA_image: TestA Image Path
+* testB_image: TestB Image Path 
+* model_dir: Path to checkpoint folder
+* sampled_images_dir: Directory where images sampled from the generator (while testing the model) are stored
+* loss_type: Loss type with which cycleGAN model is tested.
 
 
 ## Results 
 Trained CycleGAN model on Monet-Photo Database.
 
-### Comparison with L1 Loss
+### Comparison
 
 #### Photo to Monet Paintings
 
-| Input Image | Output Image - L1 | Ouput Image - SSIM | Input Image | Output Image - L1 | Ouput Image - SSIM |
-|:-----------:|:-----------------:|:------------------:|:-----------:|:-----------------:|:------------------:|
-![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/org/orgB2.png)  |  ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/l1/monetB2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/ssim/monetB2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/org/orgB5.png)  |  ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/l1/monetB5.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/ssim/monetB6.png) |
+|Input Image |L1 Image |SSIM Image |SSIM + L1 |SSIM + L2(a) |SSIM + L2(b) |SSIM + L1 + L2(b)|
+|:----------:|:-------:|:---------:|:--------:|:-----------:|:-----------:|:---------------:|
+![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/org/orgB2.png)  | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/l1/p2m/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1/p2m/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_a/p2m/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_b/p2m/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1_l2_b/p2m/ex1.png) |
+![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/p2m/org/orgB5.png)  | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/l1/p2m/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1/p2m/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_a/p2m/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_b/p2m/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1_l2_b/p2m/ex2.png) |
 
 
+#### Monet to Photo Paintings
+
+|Input Image |L1 Image |SSIM Image |SSIM + L1 |SSIM + L2(a) |SSIM + L2(b) |SSIM + L1 + L2(b)|
+|:----------:|:-------:|:---------:|:--------:|:-----------:|:-----------:|:---------------:|
+![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/org/orgA2.png)  | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/l1/m2p/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1/m2p/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_a/m2p/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_b/m2p/ex1.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1_l2_b/m2p/ex1.png) |
+![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/org/orgA9.png)  | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/l1/m2p/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1/m2p/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_a/m2p/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim_l2_b/m2p/ex2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim%20_l1_l2_b/m2p/ex2.png) |
 
 
-#### Monet Paintings to Photo 
-
-| Input Image | Output Image - L1 | Ouput Image - SSIM | Input Image | Output Image - L1 | Ouput Image - SSIM |
-|:-----------:|:-----------------:|:------------------:|:-----------:|:-----------------:|:------------------:|
-![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/org/orgA2.png)  |  ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/l1/realA2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/ssim/realA2.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/org/orgA9.png)  |  ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/l1/realA9.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compar/m2p/ssim/realA9.png) |
-
-
-
-
-### Generated Samples
-
-#### Photo to Monet Paintings
-
-| Input Image | Output Image | Input Image | Output Image | Input Image | Output Image |
-|:-----------:|:------------:|:-----------:|:------------:|:-----------:|:------------:|
-![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/orgB22.jpg)  |  ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/monetB22.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/orgB25.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/monetB25.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/orgB27.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/p2m/monetB27.png) 
-
-
-#### Monet Paintings to Photo 
-
-| Input Image | Output Image | Input Image | Output Image | Input Image | Output Image |
-|:-----------:|:------------:|:-----------:|:------------:|:-----------:|:------------:|
-![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/orgA7.png)  |  ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/realA7.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/orgA15.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/realA15.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/orgA27.png) | ![](https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/ssim/m2p/realA27.png) 
-
-### Other Comparisons 
-
-Work in Progress
 
 ## License
 
