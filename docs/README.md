@@ -139,6 +139,12 @@ Another loss metric is the recently proposed contextual loss which also measures
 
 I trained CycleGAN [[6]](https://arxiv.org/abs/1703.10593) model on Monet-Photo database with different loss functions used for calculating the cycle consistency loss. Some sample comparisons are provided below. The project is available [here](https://github.com/Tandon-A/CycleGAN_ssim). 
 
+
+<img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/img_proj.png" width="400" alt="Project Wroking">
+
+###### Figure 7: Project Details
+
+
 #### Photo to Monet Paintings
 
 |Input Image |L1 Image |SSIM Image |SSIM + L1 |SSIM + L2(a) |SSIM + L2(b) |SSIM + L1 + L2(b)|
