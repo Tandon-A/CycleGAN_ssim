@@ -6,6 +6,7 @@ Implemented and trained Cycle Consistent Generative Adversarial Network (CycleGA
 
 
 <img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/CycleGAN_working.png" width="600" alt="CycleGAN model">
+<img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/img_proj.png" width="400" alt="Project Wroking">
 
 For the CycleGAN implementation with L1 Loss refer to [here](https://github.com/Tandon-A/Image-Editing-using-GAN/tree/master/CycleGAN). For the official CycleGAN implementation read [here](https://github.com/junyanz/CycleGAN). 
 
