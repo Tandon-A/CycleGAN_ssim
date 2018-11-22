@@ -150,7 +150,7 @@ def main(_):
         lr_rate = 0.0002
         beta1 = 0.5
         max_img = 100    
-        # change loss type. Options - l1, l2, ssim, ssim_1l, ssim_l2_a, ssim_l2_b, ssim_l1l2_a, ssim_l1l2_b, l1_l2
+        # change loss type. Options - l1, l2, ssim, ssim_l1, ssim_l2_a, ssim_l2_b, ssim_l1l2_a, ssim_l1l2_b, l1_l2
         loss_type = FLAGS.loss_type
         tf.reset_default_graph()
         
