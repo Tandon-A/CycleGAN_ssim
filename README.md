@@ -21,23 +21,21 @@ For the CycleGAN implementation with L1 Loss refer to [here](https://github.com/
 
 To train the model:
 ```
-> python train_cycleGAN.py --data_path monet2photo --input_fname_pattern .jpg --model_dir cycleGAN_model --sampled_images_dir train_image_dir --loss_type l1
+> python train_cycleGAN_loss.py --data_path monet2photo --input_fname_pattern .jpg --model_dir cycleGAN_model --loss_type l1
 ```
-* data_path: Path to parent directory of trainA and trainB folder
-* input_fname_pattern: Glob pattern of training images
+* data_path: Path to directory having trainA and trainB folders (Folders with these specific names (trainA, trainB) having domainA and domainB training images respectively)
+* input_fname_pattern: Glob pattern of training images (file type of images such as .jpg or .png)
 * model_dir: Directory name to save checkpoints
-* sampled_images_dir: Directory where images sampled from the generator (while training the model) are stored 
-* loss_type: Loss type with which cycleGAN model is trained. 
+* loss_type: Loss type with which cycleGAN model is trained. (Available Options -- l1, l2, ssim, ssim_l1, ssim_l2_a, ssim_l2_b, l1_l2, ssim_l1l2_a, ssim_l1l2_b)
 
 
 To test the model:
 ```
-> python test_cycleGAN.py --testA_image A01.jpg --testB_image B01.jpg --model_dir cycleGAN_model --sampled_imaes_dir test_image_dir --loss_type l1
+> python test_cycleGAN_loss.py --testA_image A01.jpg --testB_image B01.jpg --model_dir cycleGAN_model --loss_type l1
 ```
 * testA_image: TestA Image Path
 * testB_image: TestB Image Path 
-* model_dir: Path to checkpoint folder
-* sampled_images_dir: Directory where images sampled from the generator (while testing the model) are stored
+* model_dir: Path to directory having checkpoint file
 * loss_type: Loss type with which cycleGAN model is tested.
 
 
