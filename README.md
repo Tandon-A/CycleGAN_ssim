@@ -8,6 +8,8 @@ Implemented and trained Cycle Consistent Generative Adversarial Network (CycleGA
 <img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/CycleGAN_working.png" width="600" alt="CycleGAN model">
 <img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/img_proj.png" width="400" alt="Project Working">
 
+###### Fig 1: CycleGAN working
+
 For the CycleGAN implementation with L1 Loss refer to [here](https://github.com/Tandon-A/Image-Editing-using-GAN/tree/master/CycleGAN). For the official CycleGAN implementation read [here](https://github.com/junyanz/CycleGAN). 
 
 ## Prerequisites
@@ -43,6 +45,11 @@ To test the model:
 Trained CycleGAN model on Monet-Photo Database.
 
 ### Comparison
+
+<img src="https://raw.githubusercontent.com/Tandon-A/CycleGAN_ssim/master/assets/compare.gif" alt="CycleGAN SSIM Compare">
+
+###### Fig 2: Sample video showing comparison between CycleGAN with different SSIM loss settings
+
 
 #### Photo to Monet Paintings
 
