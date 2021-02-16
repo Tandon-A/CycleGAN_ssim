@@ -156,7 +156,7 @@ def main(_):
         
         cgan_net = CycleGAN(batch_size,input_shape,pool_size,beta1,loss_type)
         
-        train(cgan_net,max_img,batch_size,tr_imgA,tr_imgB,lr_rate,input_shape,pool_size,FLAGS.model_dir+"//")
+        train(cgan_net, max_img, batch_size, tr_imgA, tr_imgB, lr_rate, input_shape, pool_size, os.path.join(FLAGS.model_dir, 'model_' + loss_type))
 
 
 
